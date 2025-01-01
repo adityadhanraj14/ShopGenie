@@ -1,0 +1,25 @@
+{
+  "name": "shopgenie",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "mithila",
+  "license": "ISC",
+  "description": "A price comparison, tracking, analytics tool for Flipkart, Myntra, and Amazon for curated categories to shop.",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.2",
+    "nodemailer": "^6.9.16",
+    "nodemon": "^3.1.9",
+    "validator": "^13.12.0"
+  }
+}

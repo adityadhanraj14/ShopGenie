@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(195deg, #9c27b0, #e1bee7);
+      font-family: Arial, sans-serif;
+    }
+    
+    .card {
+      background: linear-gradient(210deg, #d368e6, #e1bee7);
+      border-radius: 12px;
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    #auth-heading {
+      font-size: 1.8rem;
+      font-weight: bold;
+    }
+    
+    .form-group label {
+      font-size: 0.9rem;
+      color: #000000;
+    }
+    
+    .switch-link a {
+      color: #007bff;
+      text-decoration: none;
+    }
+    
+    .switch-link a:hover {
+      text-decoration: underline;
+    }
+      .alert-container {
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          z-index: 1050;
+      }
+  </style>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-center align-items-center vh-100" style="max-width: 500px;">        <div class="card shadow-lg p-4">
+            <div class="text-center">
+                <h2 id="auth-heading">Sign Up</h2>
+            </div>
+            <!-- Sign Up Form -->
+            <div id="signup-form" class="auth-form">
+                <form id="signup-form" action="/auth/signup" method="POST" novalidate>
+                    <div class="form-group mb-3">
+                        <label for="signup-name">Full Name</label>
+                        <input type="text" class="form-control" id="signup-name" name="name" placeholder="Enter your name" required>
+                        <div class="text-danger mt-1" id="error-name"></div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="signup-email">Email Address</label>
+                        <input type="email" class="form-control" id="signup-email" name="email" placeholder="Enter email" required autocomplete="email">
+                        <div class="text-danger mt-1" id="error-email"></div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="signup-password">Password</label>
+                        <input type="password" class="form-control" id="signup-password" name="password" placeholder="Create password" required autocomplete="new-password">
+                        <div class="text-danger mt-1" id="error-password"></div>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100 mb-3">Sign Up</button>
+                    <p class="text-center switch-link">Already have an account? <a href="/auth/login" id="switch-to-login">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+    
+            // Clear previous error messages
+            document.getElementById('error-name').textContent = '';
+            document.getElementById('error-email').textContent = '';
+            document.getElementById('error-password').textContent = '';
+    
+            // Collect form data
+            const name = document.getElementById('signup-name').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+    
+            // Validate that all fields are filled before checking password length
+            if (name && email && password) {
+                // Check password length
+                if (password.length < 3) {
+                    document.getElementById('error-password').textContent = 'Password must be at least 3 characters long.';
+                    return; // Prevent form submission
+                }
+            } else {
+                // If any field is empty, you can add additional messages if needed
+                if (!name) document.getElementById('error-name').textContent = 'Name is required.';
+                if (!email) document.getElementById('error-email').textContent = 'Email is required.';
+                if (!password) document.getElementById('error-password').textContent = 'Password is required.';
+                return; // Prevent form submission
+            }
+    
+            // Send POST request to the backend
+            const response = await fetch('/auth/signup', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+    
+            const result = await response.json();
+    
+            if (response.status !== 201) {
+                // Display errors on the frontend
+                if (result.errors.name) {
+                    document.getElementById('error-name').textContent = result.errors.name;
+                }
+                if (result.errors.email) {
+                    document.getElementById('error-email').textContent = result.errors.email;
+                }
+                if (result.errors.password) {
+                    document.getElementById('error-password').textContent = result.errors.password;
+                }
+            } else {
+                // Redirect to a success page or home page on successful signup
+                window.location.href = '/IndexPage';
+            }
+        });
+    </script>
+    
+</body>
+
+</html>

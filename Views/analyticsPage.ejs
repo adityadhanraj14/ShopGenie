@@ -1,0 +1,52 @@
+<!-- Views/Analytics.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Analytics - ShopGenie</title>
+  <!-- Add Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <h1>Product Analytics</h1>
+  
+  <% analyticsData.forEach((entry) => { %>
+    <div>
+      <h3>Product ID: <%= entry.productID %></h3>
+      <canvas id="chart-<%= entry.productID %>" width="400" height="200"></canvas>
+      <script>
+        // Prepare data for the chart
+        const priceData = <%= JSON.stringify(entry.priceHistory) %>;
+        
+        const labels = priceData.map(data => data.platformName);
+        const prices = priceData.map(data => data.price);
+
+        // Create the chart
+        new Chart(document.getElementById('chart-<%= entry.productID %>'), {
+          type: 'line', // Change to 'bar' or another type if you want a different graph
+          data: {
+            labels: labels,
+            datasets: [{
+              label: 'Price History',
+              data: prices,
+              borderColor: 'rgba(75, 192, 192, 1)',
+              fill: false,
+              tension: 0.1
+            }]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+    </div>
+  <% }) %>
+
+</body>
+</html>
