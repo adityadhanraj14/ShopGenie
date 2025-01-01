@@ -11,7 +11,7 @@ ShopGenie is a shopping platform that aggregates product prices from various web
 
 ## Demo
 ### Home page
-![navbar](assets/nabar.jpg)
+![navbar](assets/navbar.jpg)
 ![home page](assets/home_page.jpg)
 
 ### Price Comparison
