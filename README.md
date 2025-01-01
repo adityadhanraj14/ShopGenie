@@ -10,6 +10,9 @@ ShopGenie is a shopping platform that aggregates product prices from various web
 - **Email Notifications:** Get notified about price drops and special offers via email.
 
 ## Demo
+### Home page
+![navbar](assets/nabar.png)
+![home page](assets/home_page.png)
 
 ### Price Comparison
 ![Price Comparison](assets/price-comparison.png)
