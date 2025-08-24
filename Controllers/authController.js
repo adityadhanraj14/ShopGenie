@@ -92,7 +92,7 @@ module.exports.login_post = async (req, res) => {
         const user = await User.login(email, password);
         const token = createToken(user._id);
         res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
-        res.redirect('/indexPage');
+        res.redirect('/');
     } catch (err) {
         const errors = handleErrors(err);
         res.status(400).render('Auth/login', { message: '', errors });
@@ -102,7 +102,7 @@ module.exports.login_post = async (req, res) => {
 // Logout User
 module.exports.logout_get = (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 });
-    res.redirect('/indexPage');
+    res.redirect('/');
 };
 
 // Forgot Password

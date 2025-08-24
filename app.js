@@ -43,7 +43,7 @@ app.use("/index",categoryRoutes);
 app.use("/analytics",analyticsRoute);
 
 // Route for indexPage
-app.get('/indexPage', (req, res) => {
+app.get('/', (req, res) => {
   res.render('indexPage', { errorMessage: null });
 });
 
@@ -53,7 +53,7 @@ connectToMongoDB(mongoURI)
     // Start Server only after the MongoDB connection is established
     app.listen(PORT, () => {
       // console.log(`Server started at: http://localhost:${PORT}/products/resultPage`);
-      console.log(`Click on http://localhost:${PORT}/indexPage`);
+      console.log(`Click on http://localhost:${PORT}`);
       console.log(`Click on http://localhost:${PORT}/wishlist/wishlistPage`);
     });
   })

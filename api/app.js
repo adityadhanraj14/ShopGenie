@@ -55,7 +55,7 @@ app.use("/index", categoryRoutes);
 app.use("/analytics", analyticsRoute);
 
 // Route for indexPage
-app.get('/indexPage', async (req, res) => {
+app.get('/', async (req, res) => {
     await connectToMongoDB();
     res.render('indexPage', { errorMessage: null });
 });
